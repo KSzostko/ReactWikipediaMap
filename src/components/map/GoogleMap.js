@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { WikiApi } from '../services/api/wiki';
+import { WikiApi } from '../../services/api/wiki';
+import { emit } from './mediator';
+import * as events from './eventTypes';
 
 const ReactComponent = () => <div>Hello google map</div>;
 
@@ -25,6 +27,8 @@ export default function GoogleMap() {
     }
 
     loadArticles();
+
+    // emit(events.MAP_DRAGGED, mapCenter);
   }, [mapCenter]);
 
   function handleBoundsChange(center, zoom) {
