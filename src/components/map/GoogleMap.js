@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Place from './Place';
 import { WikiApi } from '../../services/api/wiki';
-import { emit } from './mediator';
-import * as events from './eventTypes';
+// import { emit } from './mediator';
+// import * as events from './eventTypes';
 
 const defaultCenter = {
   lat: 53.11,
