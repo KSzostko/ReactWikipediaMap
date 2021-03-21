@@ -13,17 +13,24 @@ const minZoom = 10;
 
 export default function GoogleMap() {
   const [articles, setArticles] = useState([]);
+  const [mapCenter, setMapCenter] = useState(defaultCenter);
+  const [mapZoom, setMapZoom] = useState(defaultZoom);
 
   useEffect(() => {
     async function loadArticles() {
-      const newArticles = await WikiApi.getArticles({ coord: defaultCenter });
+      const newArticles = await WikiApi.getArticles({ coord: mapCenter });
       setArticles(newArticles.query.geosearch);
 
       console.log(newArticles.query.geosearch);
     }
 
     loadArticles();
-  }, []);
+  }, [mapCenter]);
+
+  function handleBoundsChange(center, zoom) {
+    setMapCenter(center);
+    setMapZoom(zoom);
+  }
 
   return (
     <div style={{ height: '91vh', width: '100%' }}>
@@ -32,12 +39,13 @@ export default function GoogleMap() {
           key: process.env.REACT_APP_GOOGLE_MAPS_KEY,
           libraries: ['places'],
         }}
-        defaultCenter={defaultCenter}
-        defaultZoom={defaultZoom}
+        center={mapCenter}
+        zoom={mapZoom}
         yesIWantToUseGoogleMapApiInternals
         options={{
           minZoom,
         }}
+        onBoundsChange={handleBoundsChange}
       >
         <ReactComponent />
       </GoogleMapReact>
