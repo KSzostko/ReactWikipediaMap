@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
+import Place from './Place';
 import { WikiApi } from '../../services/api/wiki';
 import { emit } from './mediator';
 import * as events from './eventTypes';
-
-const ReactComponent = () => <div>Hello google map</div>;
 
 const defaultCenter = {
   lat: 53.11,
@@ -51,7 +50,14 @@ export default function GoogleMap() {
         }}
         onBoundsChange={handleBoundsChange}
       >
-        <ReactComponent />
+        {articles.map(article => (
+          <Place
+            key={article.pageid}
+            lat={article.lat}
+            lng={article.lon}
+            article={article}
+          />
+        ))}
       </GoogleMapReact>
     </div>
   );
