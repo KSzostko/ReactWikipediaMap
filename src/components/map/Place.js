@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { Popover, Modal } from 'antd';
 
 const Dot = styled.div`
-  width: 16px;
-  height: 16px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background-color: cadetblue;
+  background-color: #fa8c16;
 `;
 
 export default function Place({ article }) {

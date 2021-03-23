@@ -39,7 +39,7 @@ export default function GoogleMap() {
     <div style={{ height: '91vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+          // key: process.env.REACT_APP_GOOGLE_MAPS_KEY,
           libraries: ['places'],
         }}
         center={mapCenter}
