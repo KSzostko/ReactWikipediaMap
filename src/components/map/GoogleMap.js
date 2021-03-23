@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Place from './Place';
-import { WikiApi } from '../../services/api/wiki';
-// import { emit } from './mediator';
-// import * as events from './eventTypes';
+import { emit } from './mediator';
+import * as events from './eventTypes';
+import { useArticles } from './store';
 
 const defaultCenter = {
   lat: 53.11,
@@ -13,21 +13,13 @@ const defaultZoom = 15;
 const minZoom = 10;
 
 export default function GoogleMap() {
-  const [articles, setArticles] = useState([]);
+  const [state] = useArticles();
+
   const [mapCenter, setMapCenter] = useState(defaultCenter);
   const [mapZoom, setMapZoom] = useState(defaultZoom);
 
   useEffect(() => {
-    async function loadArticles() {
-      const newArticles = await WikiApi.getArticles({ coord: mapCenter });
-      setArticles(newArticles.query.geosearch);
-
-      console.log(newArticles.query.geosearch);
-    }
-
-    loadArticles();
-
-    // emit(events.MAP_DRAGGED, mapCenter);
+    emit(events.MAP_DRAGGED, mapCenter);
   }, [mapCenter]);
 
   function handleBoundsChange(center, zoom) {
@@ -39,7 +31,7 @@ export default function GoogleMap() {
     <div style={{ height: '91vh', width: '100%' }}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          // key: process.env.REACT_APP_GOOGLE_MAPS_KEY,
+          key: process.env.REACT_APP_GOOGLE_MAPS_KEY,
           libraries: ['places'],
         }}
         center={mapCenter}
@@ -50,7 +42,7 @@ export default function GoogleMap() {
         }}
         onBoundsChange={handleBoundsChange}
       >
-        {articles.map(article => (
+        {state.articles.map(article => (
           <Place
             key={article.pageid}
             lat={article.lat}

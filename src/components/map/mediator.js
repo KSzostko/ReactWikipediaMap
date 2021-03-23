@@ -1,4 +1,5 @@
 import { WikiApi } from '../../services/api/wiki';
+import { useArticles } from './store';
 import * as events from './eventTypes';
 
 const listeners = {};
@@ -13,10 +14,12 @@ function addListener(e, listener) {
 }
 
 function useMapMediator() {
+  const [, actions] = useArticles();
+
   async function mapDragged(coord) {
-    const articles = await WikiApi.getArticles({ coord });
-    console.log('mapDraggedEvent was called');
-    console.log(articles.query.geosearch);
+    const data = await WikiApi.getArticles({ coord });
+
+    actions.addArticles(data.query.geosearch);
   }
 
   addListener(events.MAP_DRAGGED, mapDragged);
