@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Layout, Input } from 'antd';
-import { useMapStore } from './map/store';
+import { useMapStore } from '../views/map/store';
 
 const { Header } = Layout;
 const { Search } = Input;

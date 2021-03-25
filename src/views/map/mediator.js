@@ -1,6 +1,6 @@
 import { WikiApi } from '../../services/api/wiki';
 import { useMapStore } from './store';
-import * as events from './eventTypes';
+import * as events from '../../types/mapEvents';
 
 const listeners = {};
 let map;

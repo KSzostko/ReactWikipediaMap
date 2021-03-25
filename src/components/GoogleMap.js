@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Place from './Place';
-import { emit } from './mediator';
-import * as events from './eventTypes';
-import { useMapStore } from './store';
+import { emit } from '../views/map/mediator';
+import * as events from '../types/mapEvents';
+import { useMapStore } from '../views/map/store';
 
 const defaultZoom = 15;
 const minZoom = 10;
