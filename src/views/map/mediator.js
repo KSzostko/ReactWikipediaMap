@@ -1,6 +1,7 @@
 import { WikiApi } from '../../services/api/wiki';
 import { useMapStore } from './store';
 import * as events from '../../types/mapEvents';
+import { getMobileWikiUrl } from '../../utils/getMobileWikiUrl';
 
 const listeners = {};
 let map;
@@ -44,7 +45,9 @@ function useMapMediator() {
     const res = await WikiApi.getArticle(pageid);
     const article = res.query.pages[pageid];
     setWikiArticleTitle(article.title);
-    setWikiArticleUrl(article.fullurl);
+
+    const mobileUrl = getMobileWikiUrl(article.fullurl);
+    setWikiArticleUrl(mobileUrl);
   }
 
   function modalClosed() {
