@@ -5,16 +5,28 @@ import { emit } from '../views/map/mediator';
 import * as events from '../types/mapEvents';
 
 export default function WikiModal() {
-  const [{ isModalVisible, wikiArticleTitle }] = useMapStore();
+  const [{ isModalVisible, wikiArticleTitle, wikiArticleUrl }] = useMapStore();
 
   return (
     <Modal
       title={wikiArticleTitle}
+      onCancel={() => emit(events.MODAL_CLOSED)}
       visible={isModalVisible}
       footer={null}
-      onCancel={() => emit(events.MODAL_CLOSED)}
+      width="80vw"
+      bodyStyle={{
+        height: '75vh',
+      }}
     >
-      Here a wiki article will be placed
+      <iframe
+        src={wikiArticleUrl}
+        title={wikiArticleTitle}
+        width="100%"
+        height="100%"
+        style={{
+          border: 'none',
+        }}
+      />
     </Modal>
   );
 }
