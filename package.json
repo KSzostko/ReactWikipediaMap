@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.14.0",
     "google-map-react": "^2.1.9",
+    "immer": "^9.0.1",
     "ky": "^0.27.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
