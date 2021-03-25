@@ -38,7 +38,7 @@ function useMapMediator() {
     setGoogleApiLoaded(true);
   }
 
-  async function markeClicked(pageid) {
+  async function markerClicked(pageid) {
     setModalVisible(true);
 
     const res = await WikiApi.getArticle(pageid);
@@ -47,9 +47,16 @@ function useMapMediator() {
     setWikiArticleUrl(article.fullurl);
   }
 
+  function modalClosed() {
+    setModalVisible(false);
+    setWikiArticleTitle('');
+    setWikiArticleUrl('');
+  }
+
   addListener(events.MAP_LOADED, mapLoaded);
   addListener(events.MAP_DRAGGED, mapDragged);
-  addListener(events.MARKER_CLICKED, markeClicked);
+  addListener(events.MARKER_CLICKED, markerClicked);
+  addListener(events.MODAL_CLOSED, modalClosed);
 }
 
 export default function MapMediator() {

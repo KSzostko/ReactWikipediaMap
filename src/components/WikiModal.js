@@ -1,16 +1,18 @@
 import React from 'react';
 import { Modal } from 'antd';
 import { useMapStore } from '../views/map/store';
+import { emit } from '../views/map/mediator';
+import * as events from '../types/mapEvents';
 
 export default function WikiModal() {
-  const [{ isModalVisible }, { setModalVisible }] = useMapStore();
+  const [{ isModalVisible, wikiArticleTitle }] = useMapStore();
 
   return (
     <Modal
-      title="test title"
+      title={wikiArticleTitle}
       visible={isModalVisible}
       footer={null}
-      onCancel={() => setModalVisible(false)}
+      onCancel={() => emit(events.MODAL_CLOSED)}
     >
       Here a wiki article will be placed
     </Modal>
