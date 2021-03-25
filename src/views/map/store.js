@@ -13,6 +13,7 @@ const store = createStore({
     articles: [],
     isGoogleApiLoaded: false,
     mapCenter: defaultCenter,
+    isModalVisible: false,
   },
   actions: {
     addArticles: articles => ({ setState, getState }) => {
@@ -33,6 +34,13 @@ const store = createStore({
       setState(
         produce(getState(), drafState => {
           drafState.mapCenter = coords;
+        })
+      );
+    },
+    setModalVisible: value => ({ setState, getState }) => {
+      setState(
+        produce(getState(), drafState => {
+          drafState.isModalVisible = value;
         })
       );
     },
