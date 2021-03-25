@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Popover } from 'antd';
-import { useMapStore } from '../views/map/store';
+import { emit } from '../views/map/mediator';
+import * as events from '../types/mapEvents';
 
 const Dot = styled.div`
   width: 30px;
@@ -21,13 +22,12 @@ const Dot = styled.div`
 `;
 
 export default function Place({ article }) {
-  const [, { setModalVisible }] = useMapStore();
-  const { title } = article;
+  const { title, pageid } = article;
 
   return (
     <>
       <Popover title={title} content="Click to see the details">
-        <Dot onClick={() => setModalVisible(true)} />
+        <Dot onClick={() => emit(events.MARKER_CLICKED, pageid)} />
       </Popover>
     </>
   );
