@@ -1,8 +1,9 @@
 import { WikiApi } from '../../services/api/wiki';
-import { useArticles } from './store';
+import { useMapStore } from './store';
 import * as events from './eventTypes';
 
 const listeners = {};
+let map;
 
 export function emit(e, ...args) {
   const listener = listeners[e];
@@ -14,14 +15,21 @@ function addListener(e, listener) {
 }
 
 function useMapMediator() {
-  const [, actions] = useArticles();
+  const [, { addArticles, setGoogleApiLoaded }] = useMapStore();
 
   async function mapDragged(coord) {
     const data = await WikiApi.getArticles({ coord });
 
-    actions.addArticles(data.query.geosearch);
+    addArticles(data.query.geosearch);
   }
 
+  function mapLoaded(mapInstance) {
+    map = mapInstance;
+
+    setGoogleApiLoaded(true);
+  }
+
+  addListener(events.MAP_LOADED, mapLoaded);
   addListener(events.MAP_DRAGGED, mapDragged);
 }
 
