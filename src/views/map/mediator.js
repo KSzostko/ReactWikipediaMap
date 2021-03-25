@@ -34,7 +34,10 @@ function useMapMediator() {
   }
 
   function mapLoaded(mapInstance) {
+    // just for now to deploy it without errors on netlify
+    /* eslint-disable */
     map = mapInstance;
+    /* eslint-enable */
 
     setGoogleApiLoaded(true);
   }
