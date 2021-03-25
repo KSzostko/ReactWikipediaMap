@@ -3,10 +3,16 @@ import produce from 'immer';
 
 defaults.devtools = true;
 
+const defaultCenter = {
+  lat: 53.11,
+  lng: 23.14,
+};
+
 const store = createStore({
   initialState: {
     articles: [],
     isGoogleApiLoaded: false,
+    mapCenter: defaultCenter,
   },
   actions: {
     addArticles: articles => ({ setState, getState }) => {
@@ -20,6 +26,13 @@ const store = createStore({
       setState(
         produce(getState(), drafState => {
           drafState.isGoogleApiLoaded = value;
+        })
+      );
+    },
+    setMapCenter: coords => ({ setState, getState }) => {
+      setState(
+        produce(getState(), drafState => {
+          drafState.mapCenter = coords;
         })
       );
     },
