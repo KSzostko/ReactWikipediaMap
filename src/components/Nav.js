@@ -22,7 +22,7 @@ const StyledInput = styled(Search)`
 `;
 
 export default function Nav() {
-  const [{ isGoogleApiLoaded }] = useMapStore();
+  const [{ isGoogleApiLoaded }, { setMapCenter }] = useMapStore();
 
   useEffect(() => {
     if (isGoogleApiLoaded) {
@@ -36,10 +36,10 @@ export default function Nav() {
           lat: locationData.lat(),
           lng: locationData.lng(),
         };
-        console.log(newMapCenter);
+        setMapCenter(newMapCenter);
       });
     }
-  }, [isGoogleApiLoaded]);
+  }, [isGoogleApiLoaded, setMapCenter]);
 
   return (
     <StyledHeader>
