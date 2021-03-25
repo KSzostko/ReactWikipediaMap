@@ -1,19 +1,30 @@
 import { createStore, createHook, defaults } from 'react-sweet-state';
+import produce from 'immer';
 
 defaults.devtools = true;
 
 const store = createStore({
   initialState: {
     articles: [],
+    isGoogleApiLoaded: false,
   },
   actions: {
-    addArticles: articles => ({ setState }) => {
-      setState({
-        articles,
-      });
+    addArticles: articles => ({ setState, getState }) => {
+      setState(
+        produce(getState(), drafState => {
+          drafState.articles = articles;
+        })
+      );
+    },
+    setGoogleApiLoaded: value => ({ setState, getState }) => {
+      setState(
+        produce(getState(), drafState => {
+          drafState.isGoogleApiLoaded = value;
+        })
+      );
     },
   },
   name: 'articles',
 });
 
-export const useArticles = createHook(store);
+export const useMapStore = createHook(store);
