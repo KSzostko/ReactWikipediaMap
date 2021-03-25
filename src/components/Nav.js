@@ -27,7 +27,7 @@ export default function Nav() {
   useEffect(() => {
     if (isGoogleApiLoaded) {
       const input = document.getElementById('searchbox');
-      const autocomplete = new window.google.maps.places.Autocomplete(input);
+      const autocomplete = new window.google.maps.places.SearchBox(input);
     }
   }, [isGoogleApiLoaded]);
 
