@@ -9,7 +9,8 @@
       {
         "trailingComma": "es5",
         "singleQuote": true,
-        "arrowParens": "avoid"
+        "arrowParens": "avoid",
+        "endofLine": "auto"
       }
     ]
   }
