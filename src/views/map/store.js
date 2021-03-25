@@ -14,6 +14,8 @@ const store = createStore({
     isGoogleApiLoaded: false,
     mapCenter: defaultCenter,
     isModalVisible: false,
+    wikiArticleTitle: '',
+    wikiArticleUrl: '',
   },
   actions: {
     addArticles: articles => ({ setState, getState }) => {
@@ -41,6 +43,20 @@ const store = createStore({
       setState(
         produce(getState(), drafState => {
           drafState.isModalVisible = value;
+        })
+      );
+    },
+    setWikiArticleTitle: value => ({ setState, getState }) => {
+      setState(
+        produce(getState(), drafState => {
+          drafState.wikiArticleTitle = value;
+        })
+      );
+    },
+    setWikiArticleUrl: value => ({ setState, getState }) => {
+      setState(
+        produce(getState(), drafState => {
+          drafState.wikiArticleUrl = value;
         })
       );
     },
