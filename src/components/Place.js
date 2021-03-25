@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Popover, Modal } from 'antd';
+import { Popover } from 'antd';
+import { useMapStore } from '../views/map/store';
 
 const Dot = styled.div`
   width: 30px;
@@ -20,31 +21,14 @@ const Dot = styled.div`
 `;
 
 export default function Place({ article }) {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [, { setModalVisible }] = useMapStore();
   const { title } = article;
-
-  function showModal() {
-    setIsModalVisible(true);
-  }
-
-  function hideModal() {
-    setIsModalVisible(false);
-  }
 
   return (
     <>
       <Popover title={title} content="Click to see the details">
-        <Dot onClick={showModal} />
+        <Dot onClick={() => setModalVisible(true)} />
       </Popover>
-
-      <Modal
-        title={title}
-        visible={isModalVisible}
-        onOk={hideModal}
-        onCancel={hideModal}
-      >
-        Here a wiki article will be placed
-      </Modal>
     </>
   );
 }
