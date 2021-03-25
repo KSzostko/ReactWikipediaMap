@@ -5,17 +5,12 @@ import { emit } from './mediator';
 import * as events from './eventTypes';
 import { useMapStore } from './store';
 
-const defaultCenter = {
-  lat: 53.11,
-  lng: 23.14,
-};
 const defaultZoom = 15;
 const minZoom = 10;
 
 export default function GoogleMap() {
-  const [state] = useMapStore();
+  const [{ articles, mapCenter }, { setMapCenter }] = useMapStore();
 
-  const [mapCenter, setMapCenter] = useState(defaultCenter);
   const [mapZoom, setMapZoom] = useState(defaultZoom);
 
   useEffect(() => {
@@ -43,7 +38,7 @@ export default function GoogleMap() {
         }}
         onBoundsChange={handleBoundsChange}
       >
-        {state.articles.map(article => (
+        {articles.map(article => (
           <Place
             key={article.pageid}
             lat={article.lat}
