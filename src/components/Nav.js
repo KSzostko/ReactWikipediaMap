@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Layout, Input } from 'antd';
+import { useMapStore } from './map/store';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -21,10 +22,23 @@ const StyledInput = styled(Search)`
 `;
 
 export default function Nav() {
+  const [{ isGoogleApiLoaded }] = useMapStore();
+
+  useEffect(() => {
+    if (isGoogleApiLoaded) {
+      const input = document.getElementById('searchbox');
+      const autocomplete = new window.google.maps.places.Autocomplete(input);
+    }
+  }, [isGoogleApiLoaded]);
+
   return (
     <StyledHeader>
       <StyledTitle>WikipediaMap</StyledTitle>
-      <StyledInput placeholder="Search..." style={{ width: 250 }} />
+      <StyledInput
+        id="searchbox"
+        placeholder="Search..."
+        style={{ width: 250 }}
+      />
     </StyledHeader>
   );
 }

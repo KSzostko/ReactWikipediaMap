@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import Place from './Place';
 import { emit } from './mediator';
 import * as events from './eventTypes';
-import { useArticles } from './store';
+import { useMapStore } from './store';
 
 const defaultCenter = {
   lat: 53.11,
@@ -13,7 +13,7 @@ const defaultZoom = 15;
 const minZoom = 10;
 
 export default function GoogleMap() {
-  const [state] = useArticles();
+  const [state] = useMapStore();
 
   const [mapCenter, setMapCenter] = useState(defaultCenter);
   const [mapZoom, setMapZoom] = useState(defaultZoom);
@@ -37,6 +37,7 @@ export default function GoogleMap() {
         center={mapCenter}
         zoom={mapZoom}
         yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={({ map }) => emit(events.MAP_LOADED, map)}
         options={{
           minZoom,
         }}
