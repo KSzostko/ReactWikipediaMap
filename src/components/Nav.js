@@ -27,7 +27,17 @@ export default function Nav() {
   useEffect(() => {
     if (isGoogleApiLoaded) {
       const input = document.getElementById('searchbox');
-      const autocomplete = new window.google.maps.places.SearchBox(input);
+      const searchbox = new window.google.maps.places.SearchBox(input);
+
+      searchbox.addListener('places_changed', () => {
+        const locationData = searchbox.getPlaces()[0].geometry.location;
+
+        const newMapCenter = {
+          lat: locationData.lat(),
+          lng: locationData.lng(),
+        };
+        console.log(newMapCenter);
+      });
     }
   }, [isGoogleApiLoaded]);
 
