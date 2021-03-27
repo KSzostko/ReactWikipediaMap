@@ -74,7 +74,9 @@ function useMapMediator() {
   }
 
   function articleMarked(title) {
-    ArticlesStorage.setArticleAsRead(title);
+    if (!ArticlesStorage.isArticleRead(title)) {
+      ArticlesStorage.setArticleAsRead(title);
+    }
     ArticlesStorage.refresh();
 
     setModalVisible(false);
