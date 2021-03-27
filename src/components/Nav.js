@@ -16,6 +16,7 @@ const StyledTitle = styled.h1`
   font-size: 24px;
   color: #fff;
   font-weight: 600;
+  margin-left: 16px;
 `;
 
 const StyledInput = styled(Search)`
