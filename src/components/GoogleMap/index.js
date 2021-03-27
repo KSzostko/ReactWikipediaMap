@@ -10,7 +10,7 @@ const defaultZoom = 15;
 const minZoom = 10;
 
 export default function GoogleMap() {
-  const [{ articles, mapCenter }, { setMapCenter }] = useMapStore();
+  const [{ articles, mapCenter, isLight }, { setMapCenter }] = useMapStore();
 
   const [mapZoom, setMapZoom] = useState(defaultZoom);
 
@@ -36,7 +36,7 @@ export default function GoogleMap() {
         onGoogleApiLoaded={() => emit(events.MAP_LOADED)}
         options={{
           minZoom,
-          styles: styles.dark,
+          styles: isLight ? styles.light : styles.dark,
         }}
         onChange={handleChange}
       >

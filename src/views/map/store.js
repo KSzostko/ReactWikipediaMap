@@ -16,6 +16,7 @@ const store = createStore({
     isModalVisible: false,
     wikiArticleTitle: '',
     wikiArticleUrl: '',
+    isLight: false,
   },
   actions: {
     addArticles: articles => ({ setState, getState }) => {
@@ -57,6 +58,13 @@ const store = createStore({
       setState(
         produce(getState(), drafState => {
           drafState.wikiArticleUrl = value;
+        })
+      );
+    },
+    setIsLight: value => ({ setState, getState }) => {
+      setState(
+        produce(getState(), drafState => {
+          drafState.isLight = value;
         })
       );
     },

@@ -23,6 +23,7 @@ function useMapMediator() {
       setModalVisible,
       setWikiArticleTitle,
       setWikiArticleUrl,
+      setIsLight,
     },
   ] = useMapStore();
 
@@ -53,10 +54,15 @@ function useMapMediator() {
     setWikiArticleUrl('');
   }
 
+  function mapStyleChanged(value) {
+    setIsLight(value);
+  }
+
   addListener(events.MAP_LOADED, mapLoaded);
   addListener(events.MAP_DRAGGED, mapDragged);
   addListener(events.MARKER_CLICKED, markerClicked);
   addListener(events.MODAL_CLOSED, modalClosed);
+  addListener(events.MAP_STYLE_CHANGED, mapStyleChanged);
 }
 
 export default function MapMediator() {

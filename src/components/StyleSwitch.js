@@ -1,14 +1,12 @@
 import React from 'react';
 import { Switch } from 'antd';
+import { emit } from '../views/map/mediator';
+import * as events from '../types/mapEvents';
 
 export default function StyleSwitch() {
-  function handleChange(checked) {
-    console.log(checked);
-  }
-
   return (
     <Switch
-      onChange={handleChange}
+      onChange={checked => emit(events.MAP_STYLE_CHANGED, checked)}
       checkedChildren="☀️"
       unCheckedChildren="🌙"
     />
