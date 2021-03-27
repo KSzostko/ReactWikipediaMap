@@ -9,7 +9,8 @@ const Dot = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #fa8c16;
+  background-color: ${({ marked }) => (marked ? '#237bffe0' : '#fa8c16')};
+  box-shadow: 0px 0px 5px ${({ marked }) => (marked ? '#698bff' : '#ffa769')};
   opacity: 0.7;
   transition: all 0.2s ease-in;
   cursor: pointer;
@@ -22,12 +23,15 @@ const Dot = styled.div`
 `;
 
 export default function Place({ article }) {
-  const { title, pageid } = article;
+  const { title, pageid, marked } = article;
 
   return (
     <>
       <Popover title={title} content="Click to see the details">
-        <Dot onClick={() => emit(events.MARKER_CLICKED, pageid)} />
+        <Dot
+          marked={marked}
+          onClick={() => emit(events.MARKER_CLICKED, pageid)}
+        />
       </Popover>
     </>
   );
