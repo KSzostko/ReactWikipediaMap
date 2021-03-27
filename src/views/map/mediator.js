@@ -4,7 +4,6 @@ import * as events from '../../types/mapEvents';
 import { getMobileWikiUrl } from '../../utils/getMobileWikiUrl';
 
 const listeners = {};
-let map;
 
 export function emit(e, ...args) {
   const listener = listeners[e];
@@ -33,12 +32,7 @@ function useMapMediator() {
     addArticles(data.query.geosearch);
   }
 
-  function mapLoaded(mapInstance) {
-    // just for now to deploy it without errors on netlify
-    /* eslint-disable */
-    map = mapInstance;
-    /* eslint-enable */
-
+  function mapLoaded() {
     setGoogleApiLoaded(true);
   }
 

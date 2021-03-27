@@ -33,7 +33,7 @@ export default function GoogleMap() {
         center={mapCenter}
         zoom={mapZoom}
         yesIWantToUseGoogleMapApiInternals
-        onGoogleApiLoaded={({ map }) => emit(events.MAP_LOADED, map)}
+        onGoogleApiLoaded={() => emit(events.MAP_LOADED)}
         options={{
           minZoom,
           styles: styles.dark,
