@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Place from './Place';
-import { emit } from '../views/map/mediator';
-import * as events from '../types/mapEvents';
-import { useMapStore } from '../views/map/store';
+import Place from '../Place';
+import { styles } from './styles';
+import { emit } from '../../views/map/mediator';
+import * as events from '../../types/mapEvents';
+import { useMapStore } from '../../views/map/store';
 
 const defaultZoom = 15;
 const minZoom = 10;
@@ -35,6 +36,7 @@ export default function GoogleMap() {
         onGoogleApiLoaded={({ map }) => emit(events.MAP_LOADED, map)}
         options={{
           minZoom,
+          styles: styles.dark,
         }}
         onBoundsChange={handleBoundsChange}
       >
