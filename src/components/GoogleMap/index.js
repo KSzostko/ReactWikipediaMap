@@ -18,7 +18,7 @@ export default function GoogleMap() {
     emit(events.MAP_DRAGGED, mapCenter);
   }, [mapCenter]);
 
-  function handleBoundsChange(center, zoom) {
+  function handleChange({ center, zoom }) {
     setMapCenter(center);
     setMapZoom(zoom);
   }
@@ -38,7 +38,7 @@ export default function GoogleMap() {
           minZoom,
           styles: styles.dark,
         }}
-        onBoundsChange={handleBoundsChange}
+        onChange={handleChange}
       >
         {articles.map(article => (
           <Place
