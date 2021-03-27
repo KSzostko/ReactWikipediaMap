@@ -18,9 +18,9 @@ function ArticlesDatabase() {
     }
   }
 
-  function addArticle(title) {
+  function addArticle(article) {
     try {
-      articles.push(title);
+      articles.push(article);
       localStorage.setItem(ARTICLES_KEY, JSON.stringify(articles));
     } catch (e) {
       console.error('Error while adding article to localStorage', e);
@@ -28,14 +28,17 @@ function ArticlesDatabase() {
   }
 
   const api = {
+    getReadArticles() {
+      return articles;
+    },
     refresh() {
       articles = getArticles();
     },
     isArticleRead(title) {
-      return articles.includes(title);
+      return articles.findIndex(article => article.title === title) !== -1;
     },
-    setArticleAsRead(title) {
-      addArticle(title);
+    setArticleAsRead(article) {
+      addArticle(article);
     },
   };
   return api;
