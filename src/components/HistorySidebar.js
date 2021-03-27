@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ReadOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { useMapStore } from '../views/map/store';
@@ -9,8 +9,12 @@ const { SubMenu } = Menu;
 export default function HistorySidebar() {
   const [{ articles }] = useMapStore();
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [readArticles, setReadArticles] = useState([]);
 
-  const readArticles = articles.filter(({ marked }) => marked);
+  useEffect(() => {
+    const newArticles = articles.filter(({ marked }) => marked);
+    setReadArticles(newArticles);
+  }, [articles]);
 
   return (
     <Sider
