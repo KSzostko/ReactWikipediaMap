@@ -7,7 +7,7 @@ const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 export default function HistorySidebar() {
-  const [{ articles }] = useMapStore();
+  const [{ articles }, { setMapCenter }] = useMapStore();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [readArticles, setReadArticles] = useState([]);
 
@@ -15,6 +15,11 @@ export default function HistorySidebar() {
     const newArticles = articles.filter(({ marked }) => marked);
     setReadArticles(newArticles);
   }, [articles]);
+
+  function handleClick({ key }) {
+    const [, lat, lng] = key.split(',').map(parseFloat);
+    setMapCenter({ lat, lng });
+  }
 
   return (
     <Sider
@@ -26,10 +31,15 @@ export default function HistorySidebar() {
       collapsed={isCollapsed}
       onCollapse={() => setIsCollapsed(!isCollapsed)}
     >
-      <Menu theme="dark" mode="inline" style={{ marginTop: '32px' }}>
+      <Menu
+        onClick={handleClick}
+        theme="dark"
+        mode="inline"
+        style={{ marginTop: '32px' }}
+      >
         <SubMenu key="sub" icon={<ReadOutlined />} title="Read">
-          {readArticles.map(({ pageid, title }) => (
-            <Menu.Item key={pageid}>{title}</Menu.Item>
+          {readArticles.map(({ pageid, title, lat, lon }) => (
+            <Menu.Item key={`${pageid},${lat},${lon}`}>{title}</Menu.Item>
           ))}
         </SubMenu>
       </Menu>
