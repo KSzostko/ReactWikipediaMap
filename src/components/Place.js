@@ -23,14 +23,14 @@ const Dot = styled.div`
 `;
 
 export default function Place({ article }) {
-  const { title, pageid, marked } = article;
+  const { title, pageid, marked, lat, lon } = article;
 
   return (
     <>
       <Popover title={title} content="Click to see the details">
         <Dot
           marked={marked}
-          onClick={() => emit(events.MARKER_CLICKED, pageid)}
+          onClick={() => emit(events.MARKER_CLICKED, { pageid, lat, lon })}
         />
       </Popover>
     </>

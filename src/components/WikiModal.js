@@ -5,12 +5,13 @@ import { emit } from '../views/map/mediator';
 import * as events from '../types/mapEvents';
 
 export default function WikiModal() {
-  const [{ isModalVisible, wikiArticleTitle, wikiArticleUrl }] = useMapStore();
+  const [{ isModalVisible, wikiArticle }] = useMapStore();
+  const { title, url } = wikiArticle;
 
   const footer = [
     <Button
       type="primary"
-      onClick={() => emit(events.ARTICLE_MARKED, wikiArticleTitle)}
+      onClick={() => emit(events.ARTICLE_MARKED, wikiArticle)}
     >
       Mark as read
     </Button>,
@@ -22,7 +23,7 @@ export default function WikiModal() {
   return (
     <Modal
       centered
-      title={wikiArticleTitle}
+      title={title}
       onCancel={() => emit(events.MODAL_CLOSED)}
       visible={isModalVisible}
       footer={footer}
@@ -32,8 +33,8 @@ export default function WikiModal() {
       }}
     >
       <iframe
-        src={wikiArticleUrl}
-        title={wikiArticleTitle}
+        src={url}
+        title={title}
         width="100%"
         height="100%"
         style={{

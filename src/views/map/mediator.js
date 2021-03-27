@@ -22,8 +22,7 @@ function useMapMediator() {
       addArticles,
       setGoogleApiLoaded,
       setModalVisible,
-      setWikiArticleTitle,
-      setWikiArticleUrl,
+      setWikiArticle,
       setIsLight,
     },
   ] = useMapStore();
@@ -47,21 +46,26 @@ function useMapMediator() {
     setGoogleApiLoaded(true);
   }
 
-  async function markerClicked(pageid) {
+  async function markerClicked({ pageid, lat, lon }) {
     setModalVisible(true);
 
     const res = await WikiApi.getArticle(pageid);
     const article = res.query.pages[pageid];
-    setWikiArticleTitle(article.title);
 
     const mobileUrl = getMobileWikiUrl(article.fullurl);
-    setWikiArticleUrl(mobileUrl);
+
+    setWikiArticle({
+      pageid,
+      url: mobileUrl,
+      title: article.title,
+      lat,
+      lng: lon,
+    });
   }
 
   function modalClosed() {
     setModalVisible(false);
-    setWikiArticleTitle('');
-    setWikiArticleUrl('');
+    setWikiArticle({});
   }
 
   function mapStyleChanged(value) {
@@ -73,9 +77,9 @@ function useMapMediator() {
     addArticles(markedArticles);
   }
 
-  function articleMarked(title) {
-    if (!ArticlesStorage.isArticleRead(title)) {
-      ArticlesStorage.setArticleAsRead(title);
+  function articleMarked(article) {
+    if (!ArticlesStorage.isArticleRead(article.title)) {
+      ArticlesStorage.setArticleAsRead(article);
     }
     ArticlesStorage.refresh();
 

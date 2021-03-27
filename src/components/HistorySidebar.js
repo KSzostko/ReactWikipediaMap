@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { ReadOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { useMapStore } from '../views/map/store';
+import ArticlesStorage from '../services/ArticlesStorage';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 export default function HistorySidebar() {
-  const [{ articles }, { setMapCenter }] = useMapStore();
+  const [{ isModalVisible }, { setMapCenter }] = useMapStore();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [readArticles, setReadArticles] = useState([]);
 
   useEffect(() => {
-    const newArticles = articles.filter(({ marked }) => marked);
+    const newArticles = ArticlesStorage.getReadArticles();
     setReadArticles(newArticles);
-  }, [articles]);
+  }, [isModalVisible]);
 
   function handleClick({ key }) {
     const [, lat, lng] = key.split(',').map(parseFloat);
@@ -38,8 +39,8 @@ export default function HistorySidebar() {
         style={{ marginTop: '32px' }}
       >
         <SubMenu key="sub" icon={<ReadOutlined />} title="Read">
-          {readArticles.map(({ pageid, title, lat, lon }) => (
-            <Menu.Item key={`${pageid},${lat},${lon}`}>{title}</Menu.Item>
+          {readArticles.map(({ pageid, title, lat, lng }) => (
+            <Menu.Item key={`${pageid},${lat},${lng}`}>{title}</Menu.Item>
           ))}
         </SubMenu>
       </Menu>
