@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'antd';
 import { useMapStore } from '../views/map/store';
 import { emit } from '../views/map/mediator';
-import * as events from '../types/mapEvents';
+import * as events from '../types/events';
 
 export default function WikiModal() {
   const [{ isModalVisible, wikiArticle }] = useMapStore();

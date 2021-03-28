@@ -1,6 +1,6 @@
 import { WikiApi } from '../../services/api/wiki';
 import { useMapStore } from './store';
-import * as events from '../../types/mapEvents';
+import * as events from '../../types/events';
 import { getMobileWikiUrl } from '../../utils/getMobileWikiUrl';
 import ArticlesStorage from '../../services/ArticlesStorage';
 

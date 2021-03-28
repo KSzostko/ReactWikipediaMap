@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import Place from '../Place';
 import { styles } from './styles';
 import { emit } from '../../views/map/mediator';
-import * as events from '../../types/mapEvents';
+import * as events from '../../types/events';
 import { useMapStore } from '../../views/map/store';
 
 const defaultZoom = 15;

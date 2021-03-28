@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Popover } from 'antd';
 import { emit } from '../views/map/mediator';
-import * as events from '../types/mapEvents';
+import * as events from '../types/events';
 
 const Dot = styled.div`
   width: 30px;
