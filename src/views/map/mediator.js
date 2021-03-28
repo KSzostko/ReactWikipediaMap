@@ -36,7 +36,7 @@ function useMapMediator() {
   }
 
   async function mapDragged(coord) {
-    const data = await WikiApi.getArticles({ coord });
+    const data = await WikiApi.getArticles({ coord, limit: 20 });
 
     const markedArticles = mapArticlesMarked(data.query.geosearch);
     addArticles(markedArticles);
